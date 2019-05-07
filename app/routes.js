@@ -9,7 +9,7 @@ module.exports = function(app, passport, db, multer, ObjectId) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        db.collection('messages').find().toArray((err, result) => {
+        db.collection('clip').find().toArray((err, result) => {
           if (err) return console.log(err)
           res.render('profile.ejs', {
             user : req.user,
@@ -31,7 +31,7 @@ app.get('/test', isLoggedIn, function(req, res) {
 // message board routes ========================================================
 
     app.post('/messages', (req, res) => {
-      db.collection('messages').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
+      db.collection('clip').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
@@ -39,7 +39,7 @@ app.get('/test', isLoggedIn, function(req, res) {
     })
 
     app.put('/messages', (req, res) => {
-      db.collection('messages')
+      db.collection('clip')
       .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
         $set: {
           thumbUp:req.body.thumbUp + 1
@@ -54,7 +54,7 @@ app.get('/test', isLoggedIn, function(req, res) {
     })
 
     app.delete('/messages', (req, res) => {
-      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('clip').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
@@ -75,8 +75,8 @@ var upload = multer({storage: storage});
 app.post('/up', upload.single('file-to-upload'), (req, res, next) => {
 
     insertDocuments(db, req, 'images/uploads/' + req.file.filename, () => {
-        //db.close();
-        //res.json({'message': 'File uploaded successfully'});
+        // db.close();
+        // res.json({'message': 'File uploaded successfully'});
         res.redirect('/profile')
     });
 });
