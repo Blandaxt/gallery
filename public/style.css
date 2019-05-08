@@ -9,13 +9,141 @@ img{
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
-  background-color: #2196F3;
+  background-color: #395469;
   padding: 10px;
 }
+
+.grid-container:hover{
+  /* background-color: #395469d9; */
+  background-color: #132533;
+}
+
 .grid-item {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
+  background: url(https://i.pinimg.com/originals/c6/a2/fb/c6a2fb8cd65edc585019348f6aa48e45.gif);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.8));
+  border: 1px solid rgba(247, 248, 249, 0.8);
   padding: 20px;
   font-size: 30px;
   text-align: center;
+  width: 330px;
+  height: 330px;
+}
+
+.animLine {
+  margin: 15px;
+  /* box-shadow: 0 2px 8px 2px #000; */
+  box-shadow: inset 0 0 10px #fff,
+  inset 0 0 8px #619ffb,
+  inset 0 0 9px #3aa6f3,
+  inset 0 0 9px #337bff94,
+  0 0 9px #1191ffd4,
+  0 0 9px #6baee6,
+  0 0 50px #58a1e0;
+  position: relative;
+  transform: scale(.9);
+  transition: .4s;
+}
+
+.animLine:hover {
+  transform: scale(1);
+  box-shadow: 0 2px 20px 20px #000, 0 8px 32px 10px rgba(0, 0, 0, 0.5);
+  /* box-shadow: inset 0 0 10px #fff,
+  inset 0 0 8px #619ffb,
+  inset 0 0 9px #3aa6f3,
+  inset 0 0 9px #337bff94,
+  0 0 9px #1191ffd4,
+  0 0 9px #6baee6,
+  0 0 50px #58a1e0; */
+  border: 1px solid rgba(10, 10, 10, 0.95);
+}
+
+.animLine:hover:before,
+.animLine:hover:after {
+  position: absolute;
+  content: "";
+  background: linear-gradient(90deg, #ddd 40%, transparent 40%);
+  top: -10px;
+  bottom: -10px;
+  left: -10px;
+  right: -10px;
+  z-index: 1;
+  border-radius: 4px;
+  background-size: 200% 6px;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 8px #fff);
+  background-position: 80% 0;
+}
+
+.animLine:hover:before {
+  animation: beforeLineAnim 8s linear infinite;
+}
+
+.animLine:hover:after {
+  animation: afterLineAnim 8s linear infinite;
+  transform: rotate(-90deg);
+  background-position: -20% 0;
+}
+
+@keyframes beforeLineAnim {
+  45%,
+  50% {
+    background-position: -100% 0;
+  }
+  45% {
+    transform: scale(1)
+  }
+  50%,
+  95% {
+    transform: scale(1, -1)
+  }
+  95% {
+    background-position: 80% 0
+  }
+}
+
+@keyframes afterLineAnim {
+  20%,
+  25% {
+    background-position: -100% 0;
+  }
+  20% {
+    transform: scale(1) rotate(-90deg)
+  }
+  25% {
+    transform: scale(-1, 1) rotate(-90deg)
+  }
+  70%,
+  75% {
+    background-position: 80% 0;
+  }
+  70% {
+    transform: scale(-1, 1) rotate(-90deg)
+  }
+  75% {
+    transform: scale(1, 1) rotate(-90deg)
+  }
+}
+
+.picture{
+  cursor: pointer;
+}
+
+input[type=text] {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+input[type=text]:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
 }

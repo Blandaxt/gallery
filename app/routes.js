@@ -9,14 +9,24 @@ module.exports = function(app, passport, db, multer, ObjectId) {
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        db.collection('clip').find().toArray((err, result) => {
+        db.collection('messages').find().toArray((err, result) => {
           if (err) return console.log(err)
-          res.render('profile.ejs', {
-            user : req.user,
-            messages: result
+
+          db.collection('clip').find().toArray((err, image) => {
+            if (err) return console.log(err)
+
+            res.render('profile.ejs', {
+              user : req.user,
+              messages: result,
+              image: image
+            })
+
+
           })
+
         })
     });
+
 
     // LOGOUT ==============================
     app.get('/logout', function(req, res) {
@@ -31,7 +41,7 @@ app.get('/test', isLoggedIn, function(req, res) {
 // message board routes ========================================================
 
     app.post('/messages', (req, res) => {
-      db.collection('clip').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
+      db.collection('messages').save({name: req.body.name, msg: req.body.msg, thumbUp: 0, thumbDown:0}, (err, result) => {
         if (err) return console.log(err)
         console.log('saved to database')
         res.redirect('/profile')
@@ -39,7 +49,7 @@ app.get('/test', isLoggedIn, function(req, res) {
     })
 
     app.put('/messages', (req, res) => {
-      db.collection('clip')
+      db.collection('messages')
       .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
         $set: {
           thumbUp:req.body.thumbUp + 1
@@ -54,7 +64,7 @@ app.get('/test', isLoggedIn, function(req, res) {
     })
 
     app.delete('/messages', (req, res) => {
-      db.collection('clip').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('messages').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
         if (err) return res.send(500, err)
         res.send('Message deleted!')
       })
@@ -80,6 +90,51 @@ app.post('/up', upload.single('file-to-upload'), (req, res, next) => {
         res.redirect('/profile')
     });
 });
+
+
+
+app.get('/photo/:id', isLoggedIn, (req, res) => {
+
+db.collection('clip').find().toArray((err, image) => {
+  if (err) return console.log(err)
+
+  const imgArray= image.map(element => element._id);
+
+  var filename = req.params.id;
+    console.log("Array: ", imgArray, "id: ", filename);
+
+    db.collection('clip').findOne({'_id': ObjectId(filename) }, (err, onePic) => {
+
+        if (err) return console.log(err)
+
+
+      res.contentType('image/jpeg');
+      res.send(result.image.buffer)
+      res.send(imgArray)
+
+      res.render('picture.ejs', {
+        user : req.user,
+        picture: onePic,
+        image: image
+      })
+
+    })
+
+  })
+})
+
+
+
+app.post('/gallery', upload.single('gallery'), isLoggedIn, (req, res, next) => {
+  let id = req.session.passport.user
+  let image = 'images/uploads/' + req.file.filename
+  console.log("userID: ", id, "Image: ", image);
+  db.collection('clip').save({ userId: id, image: image}, (err, result) => {
+    if (err) return console.log(err)
+    console.log('saved to database')
+    res.redirect('/profile')
+  })
+})
 
 var insertDocuments = function(db, req, filePath, callback) {
     var collection = db.collection('users');

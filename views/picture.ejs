@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <title>Alain's Gallery</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="picture.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+
+      <div class="page-header text-center">
+          <h1><span class="fa fa-anchor"></span>View Picture</h1>
+          <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+      </div>
+
+      <div class="row">
+
+          <!-- LOCAL INFORMATION -->
+          <div class="col-sm-6">
+              <div class="well">
+                  <h3><img src="<%= user.profileImg %>" alt=""> Local</h3>
+
+                  <% if (user.local.email) { %>
+                      <h4><strong>email</strong>: <%= user.local.email %></h4>
+                  <% }
+
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+    <section id="target">
+      <img src="<%= picture[0].image %>" alt="current picture">
+    </section>
+
+
+      <section>
+        <div class="grid-container">
+          <span><%= image.length %></span>
+            <% for(var i=0; i<image.length; i++) {%>
+            <div class="grid-item">
+              <img class="each" src="<%= image[i].image %>" alt="picture"/>
+            </div>
+            <% } %>
+          </div>
+        </section>
+
+
+  <script src="main.js"></script>
+
+</body>
+</html>

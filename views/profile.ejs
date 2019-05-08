@@ -1,10 +1,11 @@
 <!doctype html>
 <html>
 <head>
-    <title>21 Savage Fan Site</title>
+    <title>Alain's Gallery</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
@@ -19,7 +20,7 @@
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-6">
             <div class="well">
-                <h3><img src="<%= user.profileImg %>" alt=""> Local</h3>
+                <h3><img class="profile" src="<%= user.profileImg %>" alt=""> Local</h3>
 
                 <% if (user.local.email) { %>
                     <p>
@@ -53,7 +54,7 @@
           <h2>Add a message</h2>
         <% if (user.local.email) { %>
           <form action="/messages" method="POST">
-            <input type="text" value="<%= user.local.email %>" name="name">
+            <input readonly type="text" value="<%= user.local.email %>" name="name">
             <input type="text" placeholder="message" name="msg">
             <button type="submit">Submit</button>
           </form>
@@ -68,13 +69,25 @@
 
 </div>
 
+
     <section>
       <div class="grid-container">
+        <span><%= image.length %></span>
+          <% for(var i=0; i<image.length; i++) {%>
+          <a class="picture" href="/photo/:<%=image[i]._id %>">
+          <div class="grid-item animLine">
+          <img src="<%= image[i].image %>" alt="picture"/>
+          </div>
+          </a>
+          <% } %>
+        </div>
+      </section>
 
-        <div class="grid-item"><img src="" alt=""></div>
-
-    </div>
-    </section>
+    <!-- IMAGE UPLOAD -->
+    <form action="/gallery" enctype="multipart/form-data" method="post">
+       <input type="file" name="gallery">
+       <input type="submit" value="Upload">
+     </form>
 
 <script src="main.js"></script>
 
