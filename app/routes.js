@@ -93,7 +93,11 @@ app.post('/up', upload.single('file-to-upload'), (req, res, next) => {
 
 
 
-app.get('/photo/:id', isLoggedIn, (req, res) => {
+app.get('/photo', isLoggedIn, (req, res) => {
+
+  let imageId = req.query.id
+
+  console.log("id: ", imageId);
 
 db.collection('clip').find().toArray((err, image) => {
   if (err) return console.log(err)
@@ -101,10 +105,10 @@ db.collection('clip').find().toArray((err, image) => {
   const imgArray= image.map(element => element._id);
 
   var filename = req.params.id;
-  
-    console.log("Array: ", imgArray, "id: ", filename);
 
-    db.collection('clip').findOne({'_id': ObjectId(filename) }, (err, onePic) => {
+    console.log("Array: ", imgArray, "id: ", filename, "Querry: ", imageId);
+
+    db.collection('clip').findOne({'_id': ObjectId(imageId) }, (err, onePic) => {
 
         if (err) return console.log(err)
 

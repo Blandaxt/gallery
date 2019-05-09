@@ -67,14 +67,15 @@
            <input type="submit" value="Upload">
          </form>
 
-</div>
+       </div>
+     </div>
 
 
     <section>
       <div class="grid-container">
         <span><%= image.length %></span>
           <% for(var i=0; i<image.length; i++) {%>
-          <a href="/photo/<%= image[i]._id %>" class="picture">
+          <a href="/photo?id=<%= image[i]._id %>" class="picture">
             <div class="grid-item animLine clip">
               <figure>
 
