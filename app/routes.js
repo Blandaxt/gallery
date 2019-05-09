@@ -1,4 +1,4 @@
-module.exports = function(app, passport, db, multer, ObjectId) {
+module.exports = function(app, passport, db, multer, ObjectId, querystring) {
 
 // normal routes ===============================================================
 
@@ -101,16 +101,19 @@ db.collection('clip').find().toArray((err, image) => {
   const imgArray= image.map(element => element._id);
 
   var filename = req.params.id;
+  
     console.log("Array: ", imgArray, "id: ", filename);
 
     db.collection('clip').findOne({'_id': ObjectId(filename) }, (err, onePic) => {
 
         if (err) return console.log(err)
 
+        console.log("picture", onePic);
 
-      res.contentType('image/jpeg');
-      res.send(result.image.buffer)
-      res.send(imgArray)
+
+      // res.contentType('image/jpeg');
+      // res.send(onePic.image.buffer)
+      // res.send(imgArray)
 
       res.render('picture.ejs', {
         user : req.user,

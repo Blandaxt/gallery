@@ -3,6 +3,7 @@
 // set up ======================================================================
 // get all the tools we need
 // var uri      = 'url';
+const querystring = require('querystring');
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 8080;
@@ -23,12 +24,14 @@ var db
 
 // configuration ===============================================================
 mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 // mongoose.connect(uri, { useNewUrlParser: true });
 // console.log(configDB.url);
 mongoose.connect(configDB.url, { auth: configDB.auth }, (err, database) => {
   if (err) return console.log(err)
   db = database
-  require('./app/routes.js')(app, passport, db, multer, ObjectId);
+  require('./app/routes.js')(app, passport, db, multer, ObjectId, querystring);
 }); // connect to our database
 
 

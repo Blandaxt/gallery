@@ -147,3 +147,17 @@ input[type=text]:focus {
   margin: 5px 1px 3px 0px;
   border: 1px solid rgba(81, 203, 238, 1);
 }
+
+/* Zoom In #1 */
+/* .clip figure img  */
+.clip img{
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+/* .clip figure:hover img  */
+.clip:hover img{
+	-webkit-transform: scale(1.09);
+	transform: scale(1.09);
+}

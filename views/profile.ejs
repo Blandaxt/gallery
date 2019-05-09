@@ -74,10 +74,14 @@
       <div class="grid-container">
         <span><%= image.length %></span>
           <% for(var i=0; i<image.length; i++) {%>
-          <a class="picture" href="/photo/:<%=image[i]._id %>">
-          <div class="grid-item animLine">
-          <img src="<%= image[i].image %>" alt="picture"/>
-          </div>
+          <a href="/photo/<%= image[i]._id %>" class="picture">
+            <div class="grid-item animLine clip">
+              <figure>
+
+                <img src="<%= image[i].image %>" alt="picture"/>
+
+              </figure>
+            </div>
           </a>
           <% } %>
         </div>
