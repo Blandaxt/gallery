@@ -3,6 +3,9 @@
 // set up ======================================================================
 // get all the tools we need
 // var uri      = 'url';
+
+if( process.env.NODE_ENV !== "production" ){require('dotenv').config()}
+
 const querystring = require('querystring');
 var express  = require('express');
 var app      = express();
