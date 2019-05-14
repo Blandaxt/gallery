@@ -10,6 +10,7 @@ config
 pids
 logs
 results
+.env
 
 npm-debug.log
 node_modules
