@@ -106,7 +106,7 @@ db.collection('clip').find().toArray((err, image) => {
 
   var filename = req.params.id;
 
-    console.log("Array: ", imgArray, "id: ", filename, "Querry: ", imageId);
+    console.log("Array: ", imgArray, "Querry: ", imageId);
 
     db.collection('clip').findOne({'_id': ObjectId(imageId) }, (err, onePic) => {
 
